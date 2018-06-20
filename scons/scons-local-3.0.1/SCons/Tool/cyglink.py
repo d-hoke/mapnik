@@ -40,7 +40,9 @@ def _lib_generator(target, source, env, for_signature, **kw):
             '-Wl,--export-all-symbols',
             '-Wl,--enable-auto-import',
             '-Wl,--whole-archive', '$SOURCES',
-            '-Wl,--no-whole-archive', '$_LIBDIRFLAGS', '$_LIBFLAGS'
+            #'-Wl,--no-whole-archive', '$_LIBDIRFLAGS', '$_LIBFLAGS'
+            #'-Wl,--no-whole-archive', '$_LIBDIRFLAGS', '-Wl,--start-group', '$_LIBFLAGS', ' -Wl,--end-group'
+            '-Wl,--no-whole-archive', '-Wl,--start-group', '$_LIBDIRFLAGS',  '$_LIBFLAGS', '-Wl,--end-group'
             ])
     else:
         cmd.extend(['$SOURCES', '$_LIBDIRFLAGS', '$_LIBFLAGS'])

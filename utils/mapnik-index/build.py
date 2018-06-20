@@ -52,6 +52,12 @@ if env['RUNTIME_LINK'] == 'static':
     if env['PLATFORM'] == 'Linux':
         libraries.append('dl')
 
+#mapnik_index = program_env.Program('mapnik-index', source, CPPPATH=headers, LIBS=libraries)
+#program_env['LINKCOM'] = '-Wl,--start-group '+'$LINKCOM'+' -Wl,--end-group'
+#program_env['_LIBFLAGS'] = '-Wl,--start-group '+'$_LIBFLAGS'+' -Wl,--end-group'
+#program_env['_LIBDIRFLAGS'] = '-Wl,--start-group '+'$_LIBDIRFLAGS'+' -Wl,--end-group'
+#program_env['_LIBFLAGS'] = '-Wl,--start-group '+'$_LIBDIRFLAGS'+'$_LIBFLAGS'+' -Wl,--end-group'
+program_env['LINKCOM'] = '$LINK -o $TARGET $LINKFLAGS $__RPATH $SOURCES -Wl,--start-group $_LIBDIRFLAGS $_LIBFLAGS -Wl,--end-group'
 mapnik_index = program_env.Program('mapnik-index', source, CPPPATH=headers, LIBS=libraries)
 
 Depends(mapnik_index, env.subst('../../src/%s' % env['MAPNIK_LIB_NAME']))

@@ -29,6 +29,7 @@ else:
         test_env['LINKFLAGS'].append('-pthread')
     test_env.AppendUnique(LIBS='boost_program_options%s' % env['BOOST_APPEND'])
     test_env_local = test_env.Clone()
+    test_env_local['LINKCOM'] = '$LINK -o $TARGET $LINKFLAGS $__RPATH $SOURCES -Wl,--start-group $_LIBDIRFLAGS $_LIBFLAGS -Wl,--end-group'
 
 
     # unit tests
